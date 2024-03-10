@@ -7,15 +7,19 @@ dotenv.config({
 })
 
 connectDB()
-
-
-
-
-
-
-
-
-
+.then(() => {
+    app.on("error", (error) => {
+        console.log("ERROR: ", error);
+        throw error
+    })
+    // app.listen isliye kra hae kyu ki abhi database ka use krte hue listen krna start nhi kia (server create kra hae) 
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`Server running on port : ${process.env.PORT}`);
+    })
+})
+.catch((err) => {
+    console.log("MONGO DB Connection failed !!! ", err)
+})
 
 
 
